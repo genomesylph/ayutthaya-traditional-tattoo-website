@@ -1,31 +1,33 @@
 /* --- 60-30-10 Color Rule Implementation --- */
 :root {
     --primary-orange: #c04807f5;    /* 10% - สีส้มเข้ม (Accent & Nav) */
-    --bg-white: #ffffff;         /* 60% - สีขาวหลัก (Main Background) */
-    --bg-off-white: #f4f4f4;     /* 30% - สีขาวเข้ม/เทาอ่อน (Secondary/Cards) */
-    --text-dark: #2d2d2d;        /* สีตัวอักษรหลักบนพื้นขาว */
-    --text-light: #ffffff;       /* สีตัวอักษรบนพื้นส้ม */
+    --bg-white: #ffffff;            /* 60% - สีขาวหลัก (Main Background) */
+    --bg-off-white: #f4f4f4;        /* 30% - สีขาวเข้ม/เทาอ่อน (Secondary/Cards) */
+    --text-dark: #2d2d2d;           /* สีตัวอักษรหลักบนพื้นขาว */
+    --text-light: #ffffff;          /* สีตัวอักษรบนพื้นส้ม */
     --transition: all 0.3s ease;
 }
 
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; /* ป้องกัน Padding ดันหน้าจอจนล้น */
     font-family: 'Chonburi', sans-serif;
 }
 
 body {
-    background-color: var(--bg-white); /* 60% */
+    background-color: var(--bg-white);
     color: var(--text-dark);
     line-height: 1.6;
     scroll-behavior: smooth;
+    overflow-x: hidden; /* ป้องกันการเลื่อนซ้ายขวาที่ผิดปกติ */
+    width: 100%;
 }
 
 /* --- Navigation --- */
 nav {
     background-color: var(--primary-orange);
-    height: 80px;
+    height: 70px; /* ลดความสูงลงเล็กน้อยให้ดู compact */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -40,144 +42,131 @@ nav {
 .logo-area {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
 }
 
 .logo-area img {
-            height: 70px;
-            width: auto;
-            /*filter: brightness(0) invert(1); /* ทำให้โลโก้เป็นสีขาวเพื่อให้ตัดกับพื้นส้ม */
-        }
+    height: 50px; /* ปรับขนาดโลโก้ให้พอดีกับ nav */
+    width: auto;
+}
 
 .logo-text {
-    font-size: 1.5rem;
+    font-size: clamp(1rem, 4vw, 1.5rem); /* ย่อขนาดตามหน้าจอ */
     font-weight: 600;
     color: var(--text-light);
-    letter-spacing: 1px;
 }
 
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 30px;
+    gap: 20px;
 }
 
 .nav-links a {
     text-decoration: none;
     color: var(--text-light);
     font-weight: 600;
-    transition: var(--transition);
-    font-size: 1.1rem;
-}
-
-.nav-links a:hover {
-    opacity: 0.8;
-    text-decoration: underline;
+    font-size: 1rem;
 }
 
 /* --- Hero Section --- */
 .hero {
-    height: 80vh;
+    min-height: 70vh; /* ใช้ min-height เพื่อให้ยืดหยุ่น */
     background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), 
-                url('tattoo1.jpg') center/cover;
+                url('tattoo1.jpg') center/cover no-repeat;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 0 20px;
-    margin-top: 80px;
+    padding: 100px 20px 60px; /* เผื่อที่ว่างด้านบนจาก nav */
+    margin-top: 0;
 }
 
 .hero h1 {
-    font-size: 4rem;
+    font-size: clamp(2rem, 10vw, 4rem); /* ใหญ่ในคอม เล็กในมือถือ */
     margin-bottom: 20px;
     color: var(--primary-orange);
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    line-height: 1.2;
+}
+
+.hero p {
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    margin-bottom: 30px;
 }
 
 .btn-cta {
-    padding: 15px 35px;
+    padding: 12px 30px;
     background-color: var(--primary-orange);
     color: var(--text-light);
     text-decoration: none;
     font-weight: 600;
     border-radius: 50px;
     transition: var(--transition);
-    box-shadow: 0 4px 15px rgba(230, 81, 0, 0.3);
-}
-
-.btn-cta:hover {
-    transform: translateY(-3px);
-    background-color: #bf4300;
 }
 
 /* --- Section Styling --- */
 section {
-    padding: 80px 10%;
+    padding: 60px 5%; /* ใช้ % เพื่อให้เหลือขอบพอดีมือถือ */
 }
 
 h2 {
-    font-size: 2.8rem;
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     color: var(--primary-orange);
 }
 
-#about { background-color: var(--bg-white); }
-#portfolio { background-color: var(--bg-off-white); }
-#details { background-color: var(--bg-white); }
+#about, #details { background-color: var(--bg-white); }
+#portfolio, footer#contact { background-color: var(--bg-off-white); }
 
 /* Portfolio Grid */
 .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
+    /* ในมือถือจะแสดง 2 คอลัมน์ ในคอมแสดงตามความกว้าง */
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
+    gap: 15px;
+}
+
+@media (min-width: 768px) {
+    .portfolio-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+    }
 }
 
 .portfolio-item {
-    height: 350px;
-    background-color: var(--bg-white);
-    border-radius: 15px;
+    aspect-ratio: 1 / 1; /* บังคับให้เป็นจัตุรัสเพื่อให้เรียงสวย */
+    height: auto;
+    border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
-.portfolio-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: var(--transition);
-}
-
-.portfolio-item:hover img {
-    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
 /* Service Cards */
 .detail-card {
     background: var(--bg-off-white);
-    padding: 40px;
-    border-radius: 20px;
+    padding: 30px;
+    border-radius: 15px;
     border-left: 5px solid var(--primary-orange);
+    margin-bottom: 20px;
 }
 
-/* --- Footer (แก้ให้ชิดซ้ายทั้งหมด) --- */
+/* --- Footer --- */
 footer#contact {
-    padding: 80px 10%;
-    background-color: var(--bg-off-white);
+    padding: 60px 5%;
     border-top: 1px solid #ddd;
-    text-align: left; /* บังคับเนื้อหา footer ชิดซ้าย */
+    text-align: left;
 }
 
 footer#contact h2 {
-    text-align: left; /* บังคับหัวข้อ h2 ชิดซ้าย */
-    margin-left: 0;
+    text-align: left;
 }
 
 .contact-info {
     display: flex;
-    flex-direction: column; /* เรียงแถวติดต่อลงข้างล่าง */
+    flex-direction: column;
     gap: 15px;
 }
 
@@ -187,18 +176,13 @@ footer#contact h2 {
     align-items: center;
 }
 
-.contact-card strong {
-    color: var(--primary-orange);
-    min-width: 60px;
-}
-
 .copyright {
-    margin-top: 50px;
-    font-size: 0.9rem;
+    margin-top: 40px;
+    font-size: 0.85rem;
     color: #888;
 }
 
-/* --- Mobile Responsive --- */
+/* --- Mobile Responsive (Hamburger Menu) --- */
 .menu-toggle {
     display: none;
     flex-direction: column;
@@ -215,17 +199,22 @@ footer#contact h2 {
 
 @media (max-width: 768px) {
     .menu-toggle { display: flex; }
+    
     .nav-links {
-        display: none;
+        display: none; /* ซ่อนเมนูไว้รอเปิด */
         flex-direction: column;
         position: absolute;
-        top: 80px;
+        top: 70px;
         left: 0;
         width: 100%;
         background-color: var(--primary-orange);
-        padding: 20px;
+        padding: 30px 20px;
         text-align: center;
+        gap: 25px;
+        border-top: 1px solid rgba(255,255,255,0.1);
     }
-    .nav-links.active { display: flex; }
-    .hero h1 { font-size: 2.5rem; }
+    
+    .nav-links.active { display: flex; } /* แสดงเมื่อกดปุ่ม */
+
+    section { padding: 40px 5%; } /* ลด Padding บนมือถือเพื่อให้มีพื้นที่เนื้อหา */
 }
