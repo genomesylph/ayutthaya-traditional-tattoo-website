@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test12345 - Premium Tattoo Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Chonburi:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- 60-30-10 Color Rule Implementation --- */
+        :root {
+            --primary-orange: #c04807f5;    /* 10% - สีส้มเข้ม (Accent & Nav) */
+            --bg-white: #ffffff;         /* 60% - สีขาวหลัก (Main Background) */
+            --bg-off-white: #f4f4f4;     /* 30% - สีขาวเข้ม/เทาอ่อน (Secondary/Cards) */
+            --text-dark: #2d2d2d;        /* สีตัวอักษรหลักบนพื้นขาว */
+            --text-light: #ffffff;       /* สีตัวอักษรบนพื้นส้ม */
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Srisakdi', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-white); /* 60% */
+            color: var(--text-dark);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Navigation (สีส้ม 10%) --- */
+        nav {
+            background-color: var(--primary-orange);
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-area img {
+            height: 50px;
+            width: auto;
+            filter: brightness(0) invert(1); /* ทำให้โลโก้เป็นสีขาวเพื่อให้ตัดกับพื้นส้ม */
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-light);
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 80vh;
+            /* ปรับ Overlay ให้จางลงเพื่อให้เข้ากับโทนขาว */
+            background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), 
+                        url('tattoo1.jpg') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            margin-top: 80px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--primary-orange);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .btn-cta {
+            padding: 15px 35px;
+            background-color: var(--primary-orange);
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(230, 81, 0, 0.3);
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-3px);
+            background-color: #bf4300;
+            box-shadow: 0 6px 20px rgba(230, 81, 0, 0.4);
+        }
+
+        /* --- Section Styling --- */
+        section {
+            padding: 80px 10%;
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-orange);
+        }
+
+        /* ใช้สี 30% สำหรับสลับสีพื้นหลัง */
+        #about { background-color: var(--bg-white); }
+        #portfolio { background-color: var(--bg-off-white); }
+        #details { background-color: var(--bg-white); }
+        #contact { background-color: var(--bg-off-white); }
+
+        /* Portfolio Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .portfolio-item {
+            height: 350px;
+            background-color: var(--bg-white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Service Cards (สี 30%) */
+        .detail-card {
+            background: var(--bg-off-white);
+            padding: 40px;
+            border-radius: 20px;
+            border-left: 5px solid var(--primary-orange);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+        }
+
+        /* Contact Section */
+        .contact-info {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            text-align: center;
+        }
+
+        .contact-card i {
+            font-size: 2.5rem;
+            color: var(--primary-orange);
+            margin-bottom: 15px;
+        }
+
+        /* --- Mobile Responsive --- */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-light);
+            border-radius: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: flex; }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-orange);
+                padding: 20px;
+                text-align: center;
+            }
+            .nav-links.active { display: flex; }
+            .hero h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo-area">
+            <img src="img.png" alt="test12345 Logo">
+            <span class="logo-text">Ayuttaya Traditional Tattoo</span>
+        </div>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span><span></span><span></span>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#home">หน้าแรก</a></li>
+            <li><a href="#about">ที่มา</a></li>
+            <li><a href="#portfolio">ผลงาน</a></li>
+            <li><a href="#details">รายละเอียด</a></li>
+            <li><a href="#contact">ติดต่อ</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero" id="home">
+        <h1>ศิลปะการสักชั้นสูง</h1>
+        <p style="margin-bottom: 30px; font-size: 1.4rem; color: #444;">เอกลักษณ์ลายเส้นที่คุณออกแบบได้เอง</p>
+        <a href="#contact" class="btn-cta">ปรึกษาช่างสักฟรี</a>
+    </header>
+
+    <section id="about">
+        <h2>ที่มาและความสำคัญ</h2>
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <p style="font-size: 1.2rem; color: #555;">test12345 ก่อตั้งขึ้นจากความหลงใหลในศิลปะบนเรือนร่าง เราเชื่อว่ารอยสักคือการบันทึกเรื่องราวและความหมายส่วนตัวของลูกค้าแต่ละท่าน เราจึงให้ความสำคัญกับมาตรฐานความสะอาดและฝีมือที่ประณีต</p>
+        </div>
+    </section>
+
+    <section id="portfolio">
+    <h2>ผลงานของเรา</h2>
+    <div class="portfolio-grid" id="portfolio-gallery">
+        </div>
+</section>
+
+<script>
+    // 1. ระบุจำนวนภาพที่พี่มีในโฟลเดอร์ imgs
+    const totalTattoos = 24; // สมมติว่ามี 12 ภาพ (แก้เลขนี้ตามจริงได้เลย)
+
+    const galleryContainer = document.getElementById('portfolio-gallery');
+    let htmlContent = '';
+
+    // 2. เริ่ม Loop สร้าง HTML
+    for (let i = 1; i <= totalTattoos; i++) {
+        // ทำเลขให้เป็น 3 หลัก (001, 002, 003...)
+        let fileName = i.toString().padStart(3, '0');
+        
+        // สร้าง Template สำหรับแต่ละภาพ
+        htmlContent += `
+            <div class="portfolio-item">
+                <img src="imgs/tattoo${fileName}.jpg" alt="work tattoo ${fileName}" loading="lazy">
+            </div>
+        `;
+    }
+
+    // 3. เอา HTML ที่สร้างเสร็จแล้วไปใส่ใน Grid
+    galleryContainer.innerHTML = htmlContent;
+</script>
+
+    <section id="details">
+        <h2>รายละเอียดบริการ</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+            <div class="detail-card">
+                <h3 style="color: var(--primary-orange); margin-bottom: 15px;">การเตรียมตัว</h3>
+                <p>พักผ่อนให้เพียงพอ ทานอาหารให้พร้อม และงดเครื่องดื่มแอลกอฮอล์ก่อนเข้ารับบริการอย่างน้อย 24 ชั่วโมง</p>
+            </div>
+            <div class="detail-card">
+                <h3 style="color: var(--primary-orange); margin-bottom: 15px;">การดูแลหลังสัก</h3>
+                <p>เราใช้วัสดุปิดแผลมาตรฐานสูง และมีผลิตภัณฑ์ดูแลรอยสัก (Aftercare) ให้คำแนะนำอย่างละเอียด</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" style="padding: 80px 10%; text-align: center; border-top: 1px solid #ddd;">
+        <h2 style="margin-bottom: 40px;">ช่องทางติดต่อ</h2>
+        <div class="contact-info">
+            <div class="contact-card">
+                <i class="fab fa-line"></i>
+                <p>Line ID: @test12345</p>
+            </div>
+            <div class="contact-card">
+                <i class="fas fa-phone"></i>
+                <p>081-234-5678</p>
+            </div>
+            <div class="contact-card">
+                <i class="fab fa-instagram"></i>
+                <p>IG: test12345_tattoo</p>
+            </div>
+        </div>
+        <div style="margin-top: 50px; font-size: 0.9rem; color: #888;">
+            &copy; 2026 test12345 Tattoo Studio. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
+
+</body>
+</html>
